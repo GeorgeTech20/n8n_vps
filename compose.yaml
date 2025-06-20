@@ -1,6 +1,7 @@
 version: "3.8"
 
 services:
+  # EasyPanel
   easypanel:
     image: easypanel/easypanel:latest
     container_name: easypanel
@@ -8,11 +9,12 @@ services:
     ports:
       - "9000:9000"
     environment:
-      PANEL_USER: admin
-      PANEL_PASSWORD: GrpOln20//tec
+      PANEL_USER: "${PANEL_USER}"
+      PANEL_PASSWORD: "${PANEL_PASSWORD}"
     volumes:
       - ./easypanel_data:/data
 
+  # n8n
   n8n:
     image: n8nio/n8n:latest
     container_name: n8n
@@ -20,11 +22,11 @@ services:
     ports:
       - "5678:5678"
     environment:
-      N8N_BASIC_AUTH_ACTIVE: "true"
-      N8N_BASIC_AUTH_USER: usuario
-      N8N_BASIC_AUTH_PASSWORD: tu_password
+      N8N_BASIC_AUTH_ACTIVE: "${N8N_BASIC_AUTH_ACTIVE}"
+      N8N_BASIC_AUTH_USER: "${N8N_BASIC_AUTH_USER}"
+      N8N_BASIC_AUTH_PASSWORD: "${N8N_BASIC_AUTH_PASSWORD}"
       WEBHOOK_URL: "${WEBHOOK_URL}"
-      N8N_EDITOR_BASE_URL: "${WEBHOOK_URL}"
+      N8N_EDITOR_BASE_URL: "${N8N_EDITOR_BASE_URL}"
       N8N_DEFAULT_BINARY_DATA_MODE: filesystem
     volumes:
       - ./n8n_data:/home/node/.n8n
